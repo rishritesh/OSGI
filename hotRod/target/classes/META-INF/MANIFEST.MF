@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Build-Jdk-Spec: 17
+Created-By: Maven Integration for Eclipse
+Import-Package: io.netty.bootstrap,io.netty.buffer;version="[4.1,5)",io.
+ netty.channel,io.netty.channel.nio,io.netty.channel.oio,io.netty.channe
+ l.socket,io.netty.resolver;version="[4.1,5)",io.netty.util;version="[4.
+ 1,5)",io.netty.util.concurrent;version="[4.1,5)",io.netty.util.internal
+ ;version="[4.1,5)",io.netty.util.internal.logging;version="[4.1,5)",sun
+ .nio.ch;resolution:=optional,org.eclipse.jetty.npn;resolution:=optional
+ ;version="[1,2)",org.eclipse.jetty.alpn;resolution:=optional;version="[
+ 1,2)",org.infinispan.client.hotrod.RemoteCache;version="[14.0.0)",,org.
+ infinispan.client.hotrod.RemoteCacheManager,org.infinispan.client.hotro
+ d.configuration.Configuration,org.infinispan.client.hotrod.configuratio
+ n.ConfigurationBuilder
+

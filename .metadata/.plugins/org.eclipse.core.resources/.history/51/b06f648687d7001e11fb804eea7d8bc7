@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Import-Package : org.infinispan.configuration.cache.ConfigurationBuilder
+Import-Package : org.infinispan.Cache
+Import-Package : org.infinispan.configuration.cache.ConfigurationBuilder
+Import-Package : org.infinispan.manager.DefaultCacheManager

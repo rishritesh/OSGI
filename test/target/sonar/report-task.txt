@@ -1,0 +1,6 @@
+projectKey=ritesh
+serverUrl=http://135.181.0.42:9001
+serverVersion=10.0.0.68432
+dashboardUrl=http://135.181.0.42:9001/dashboard?id=ritesh
+ceTaskId=AY5gMMTsClsdbbCyJ-pi
+ceTaskUrl=http://135.181.0.42:9001/api/ce/task?id=AY5gMMTsClsdbbCyJ-pi

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+	xsi:schemaLocation="
+         http://www.osgi.org/xmlns/blueprint/v1.0.0 https://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+         http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd
+         http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0 http://aries.apache.org/schemas/blueprint-cm/blueprint-cm-1.1.0.xsd">
+
+	<!-- <cm:property-placeholder persistent-id="HelloBean" update-strategy="reload"> 
+		<cm:default-properties> <cm:property name="greeting" value="Hi from Camel" 
+		/> </cm:default-properties> </cm:property-placeholder> <bean id="helloBean" 
+		class="com.ritesh.HelloBean"> <property name="say" value="${greeting}"/> 
+		</bean> -->
+
+	<!-- <bean id="infinispan" class="com.ritesh.RemoteCacheManagerFactory">
+		<argument value="localhost" />
+		<argument value="BOYS" />
+	</bean> -->
+	<!-- <bean id="hotRod" class="com.ritesh.HotRod"/> -->
+	
+	<bean id="Test" class="com.ritesh.Test"/>
+
+
+
+
+
+	<camelContext id="blueprint-bean-context"
+		xmlns="http://camel.apache.org/schema/blueprint">
+
+		<!-- <restConfiguration component="restlet" bindingMode="auto" port="8080"/> 
+			Define routes using RouteBuilder <routeBuilder ref="myRouteBuilder"/> -->
+
+	<!-- 	<route id="myRoute">
+		<from uri="direct:start"/>
+			 <process ref="Test"/>
+			 <log message="working fine"/>
+		</route> -->
+		<route id="timerToLog">
+      <from uri="timer:foo?period=50000"/>
+      <process ref="Test"/>
+      <log message="The message contains "/>
+      <to uri="mock:result"/>
+    </route>
+
+
+		<!-- <restConfiguration component="restlet" bindingMode="auto"> <endpointProperty 
+			key="port" value="8080"/> </restConfiguration> <route> <from uri="rest:get:/api/hello"/> 
+			<setBody> <constant>Hello World</constant> </setBody> </route> -->
+		<!-- <restConfiguration component="servlet" host="localhost" port="8080" 
+			/> -->
+
+
+		<!-- <route id="helloRoute"> <from uri="restlet:http://localhost:8080/hello?restletMethod=get" 
+			/> <setBody> <simple>Hello World</simple> </setBody> <log message="hiiii" 
+			/> </route> -->
+		<!-- <route id="helloRoute"> <from uri="rest:/http://localhost:8080/hello?httpMethod=GET" 
+			/> <setBody> <simple>Hello World</simple> </setBody> <log message="Received 
+			GET request to /hello" /> </route> -->
+		<!-- <restConfiguration component="restlet" bindingMode="auto" host="localhost" 
+			port="8080" /> <rest path="/api"> <get uri="/hello"> <to uri="direct:hello"/> 
+			</get> </rest> <route id="helloRoute"> <from uri="direct:hello"/> <setBody> 
+			<constant>Hello World</constant> </setBody> </route> -->
+
+
+
+
+
+		<!-- <route id="helloRoute"> <from uri="restlet:/api/hello?method=GET"/> 
+			<setBody> <simple>Hi</simple> </setBody> <log message="inside the rest"/> 
+			</route> -->
+
+		<!-- <route id="myRoute" > Define from endpoint using REST DSL <from uri="rest:get:/hi"/> 
+			Define processing steps <log message="Hello World!"/> Define any additional 
+			processing steps </route> -->
+
+
+
+		<!-- <route id="myRoute"> Define from endpoint <from uri="jetty:http://localhost:8080/hi"/> 
+			Define processing steps <log message="Hello World!"/> Define any additional 
+			processing steps </route> -->
+
+		<!-- <rest xmlns="http://camel.apache.org/schema/blueprint"> <get uri="/hello"> 
+			<to uri="direct:helloEndpoint"/> </get> </rest> -->
+
+		<!-- <route> <from uri="direct:greeting" /> <setBody> <constant>Greetings 
+			from Camel!</constant> </setBody> </route> -->
+
+
+		<!-- <route> <from uri="http://localhost:8080/infinispan?Method=GET" /> 
+			<from uri="direct:start"/> <log message="${header.name},${header.gender},${header.key} 
+			JJJJJJJJJJJJJJJJJJJJJJJJJJJJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIIIIIIIIIIIIIIIIIIIIIIIIIIII" 
+			/> <to uri="infinispan" /> <bean ref="infinispan" method="main"/> <bean ref="infinispan" 
+			method="xyz" /> -->
+
+		<!-- <setHeader headerName="Authorization"> <simple>Basic YWRtaW46cGFzc3dvcmQ=</simple> 
+			</setHeader> <setBody> <simple>{"st_name": "${header.name}", "st_gender": 
+			"${header.gender}"}</simple> </setBody> <toD uri="http4://localhost:11222/rest/v2/caches/Hello/${header.key}?bridgeEndpoint=true"/> -->
+
+		<!-- <log message="Data posted to Infinispan: ${body}" /> </route> -->
+
+	</camelContext>
+
+</blueprint>

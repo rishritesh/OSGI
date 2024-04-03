@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+       xsi:schemaLocation="
+         http://www.osgi.org/xmlns/blueprint/v1.0.0 https://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+         http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd
+         http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0 http://aries.apache.org/schemas/blueprint-cm/blueprint-cm-1.1.0.xsd">
+
+  <!--<cm:property-placeholder persistent-id="HelloBean" update-strategy="reload">
+    <cm:default-properties>
+      <cm:property name="greeting" value="Hi from Camel" />
+    </cm:default-properties>
+  </cm:property-placeholder>-->
+
+  <bean id="helloBean" class="com.hotRod.HelloBean">
+      <!--<property name="say" value="${greeting}"/>-->
+  </bean>
+  <bean id="hotRod" class="com.hotRod.HotRod">
+	  <!--<property name="mycall" ref="myCallBean"/>-->
+  </bean>
+  
+  <bean id="hotRod1" class="com.hotRod.Test" />
+ <!--<bean id="myCallBean" class="com.hotRod.Mycall">
+        <argument value="admin"/>  Username 
+        <argument value="password"/>  Password 
+    </bean>-->
+    
+    <bean id="infinispan" class="org.apache.camel.component.infinispan.InfinispanComponent"/>
+
+
+<!--   org.infinispan.client.hotrod.RemoteCacheManager;-->
+   <!--org.apache.camel.component.infinispan.InfinispanConfiguration-->
+ <!-- <bean id="infinispanConfiguration" class="org.apache.camel.component.infinispan.InfinispanConfiguration">
+        <property name="hosts" value="localhost:11222"/> 
+        <property name="cacheName" value="BOYS"/> 
+    </bean>
+
+    <bean id="infinispanComponent" class="org.apache.camel.component.infinispan.InfinispanComponent">
+        <property name="configuration" ref="infinispanConfiguration"/>
+    </bean> -->
+    
+  
+  <camelContext id="blueprint-bean-context" xmlns="http://camel.apache.org/schema/blueprint">
+  
+  
+    <route id="timerToLog">
+      <from uri="timer:foo?period=50000"/>
+      
+      <process ref="hotRod"/>
+      
+      <!--<process ref="hotRod1"/>-->
+      
+     <!-- <log message="The message contains ${body} "/>-->
+      <to uri="mock:result"/>
+    </route>
+    
+    
+  </camelContext>
+
+</blueprint>

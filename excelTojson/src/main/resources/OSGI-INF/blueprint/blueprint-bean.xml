@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+	xsi:schemaLocation="
+         http://www.osgi.org/xmlns/blueprint/v1.0.0 https://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+         http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd
+         http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0 http://aries.apache.org/schemas/blueprint-cm/blueprint-cm-1.1.0.xsd">
+	<!-- <cm:property-placeholder persistent-id="HelloBean" update-strategy="reload"> 
+		<cm:default-properties> <cm:property name="greeting" value="Hi from Camel" 
+		/> </cm:default-properties> </cm:property-placeholder> <bean id="helloBean" 
+		class="com.example.HelloBean"> <property name="say" value="${greeting}"/> 
+		</bean> -->
+		
+		<bean id="xlsxProcessor" class="com.example.XlsxProcessor"/>
+		
+		
+	<camelContext id="blueprint-bean-context"
+		xmlns="http://camel.apache.org/schema/blueprint">
+
+		<streamCaching enabled="true" />
+
+		<route id="xlsxToJsonRoute">
+			<from
+				uri="file:/home/noida/Desktop/xl_file/data?fileName=data.xlsx&amp;noop=true" />
+			<log message="Reading XLSX file: ${file:name}" />
+			<process ref="xlsxProcessor" />
+			<to uri="file:/home/noida/Desktop/xl_file/data?fileName=output.json" />
+		</route>
+		
+		 
+		 <!-- <route id="xlToJsonRoute">
+        <from uri="file:/path/to/your/excel/files?fileName=input.xlsx&amp;noop=true"/>
+        Split the Excel rows
+        <split streaming="true">
+            <tokenize token="\n"/>
+            Filter out the header row (first row)
+            <filter>
+                <simple>${property.CamelSplitIndex} > 0</simple>
+                <log message="reading ${body}"/>
+                <to uri="direct:processRow"/>
+            </filter>
+        </split>
+        <marshal>
+            <json library="Jackson"/>
+        </marshal>
+        <to uri="file:/path/to/output/json"/>
+    </route>
+    
+    Process each row
+    <route id="processRow">
+        <from uri="direct:processRow"/>
+        Unmarshal the Excel row
+        <unmarshal>
+            <xlsx/>
+        </unmarshal>
+    </route> -->
+
+
+		<!-- Route to read Excel files -->
+		<!-- <route id="readExcelRoute"> <from uri="file:/home/noida/Desktop/xl_file/data.xml?include=.*\.xml&amp;noop=true" 
+			/> <to uri="direct:convertToJson" /> <log message="reading file" /> </route> 
+			Route to merge data <route id="mergeData"> <from uri="direct:mergeData" /> 
+			Merge the data from two Excel files Add your logic here to merge data <to 
+			uri="direct:convertToJson" /> </route> Route to convert to JSON <route id="convertToJson"> 
+			<from uri="direct:convertToJson" /> Convert merged data to JSON <marshal> 
+			<json library="Jackson" /> </marshal> Save JSON to file or do further processing 
+			<to uri="file:/home/noida/Desktop/output?fileName=result.json" /> <log message="converting 
+			json" /> </route> -->
+
+		<!-- <route id="xmlToJsonRoute">
+			<from
+				uri="file:/home/noida/Desktop/xl_file/data?fileName=data.xlsx&amp;noop=true" />
+			<log message="Reading XL file: ${file:name}" />
+			<convertBodyTo type="java.lang.String" />
+
+			<doTry>
+				<marshal>
+					<json library="Jackson" />
+				</marshal>
+
+				<to
+					uri="file:/home/noida/Desktop/xl_file/data?fileName=output.json" />
+				<doCatch>
+					<exception>java.lang.Exception</exception>
+					<log
+						message="Error converting XL to JSON: ${exception.message}" />
+				</doCatch>
+			</doTry>
+			<marshal> <json library="Jackson" /> </marshal>
+			<log message="Converted XML to JSON: ${body}" />
+		</route> -->
+
+
+
+		<!-- <route> <from uri="file:/home/noida/Desktop/xl_file/data?fileName=one.xml&amp;noop=true"/> 
+			<log message="reading data"/> <unmarshal > <json library="Jackson"/> </unmarshal> 
+			<log message="Converted XML to JSON: ${body}" /> <to uri="log:jsonOutput"/> -->
+
+		<!-- </route> -->
+
+		<!-- <route id="fileToLogRoute"> <from uri="file:/path/to/your/file?noop=true"/> 
+			<log message="File Content: ${body}"/> <to uri="log:output"/> </route> -->
+
+
+
+
+	</camelContext>
+
+</blueprint>

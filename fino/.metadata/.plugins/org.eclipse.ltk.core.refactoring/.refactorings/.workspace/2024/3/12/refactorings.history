@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete 7 resources" deleteContents="false" description="Delete 7 resources" element1="/camel-quarkus-examples-file-log-xml" element2="/enach-enc-dec-sign-verify" element3="/enach-processor" element4="/enach-splitter" element5="/finobank-enach-accountvalidation" element6="/fino-gpg-enc-pfx-sign" element7="/notifier-service" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="7" stamp="1711023173826"/>
+</session>
